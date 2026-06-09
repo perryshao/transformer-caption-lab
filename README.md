@@ -81,7 +81,7 @@ caption prefix tokens
 常用下载来源：
 
 - **Kaggle**: https://www.kaggle.com/datasets/adityajn105/flickr8k
-- **百度网盘**：[[https://pan.baidu.com/s/1LCuDxrsCS6LoJyxWvzeZDQ?pwd=qd1x ]]
+- **百度网盘**：https://pan.baidu.com/s/1LCuDxrsCS6LoJyxWvzeZDQ?pwd=qd1x  
 
 下载后解压即可：
 
@@ -315,4 +315,4 @@ ls ~/.cache/huggingface/hub/models--openai--clip-vit-base-patch32/
 
 ***上述过程如果不能解决，请直接从下面百度网盘下载models.zip, 并解压到项目根目录下即可。***
 
-CLIP-ViT模型文件：[[https://pan.baidu.com/s/1UzoQHg37Y5t9grY22ERIiQ?pwd=pjsm ]]
+CLIP-ViT模型文件：https://pan.baidu.com/s/1UzoQHg37Y5t9grY22ERIiQ?pwd=pjsm
