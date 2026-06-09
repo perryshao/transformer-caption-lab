@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L11,4 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 28px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 17px; fill: #475569; }
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 10; }
+      .blue { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 10; }
+      .green { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 10; }
+      .amber { fill: #fffbeb; stroke: #d97706; stroke-width: 2; rx: 10; }
+      .purple { fill: #faf5ff; stroke: #9333ea; stroke-width: 2; rx: 10; }
+      .gray { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; rx: 10; }
+      .text { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 18px; fill: #0f172a; }
+      .small { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 14px; fill: #475569; }
+      .tiny { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 12px; fill: #64748b; }
+      .arrow { stroke: #334155; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+      .label { font-family: Arial, "Noto Sans CJK SC", sans-serif; font-size: 13px; fill: #334155; }
+    </style>
+  </defs>
+
+  <text x="42" y="46" class="title">ViT / CLIP Encoder + Student-built Transformer Decoder</text>
+  <text x="42" y="76" class="subtitle">Image captioning architecture: freeze image encoder, train the Transformer decoder for text generation</text>
+
+  <rect x="42" y="128" width="150" height="118" class="box"/>
+  <text x="74" y="168" class="text">Image</text>
+  <text x="62" y="198" class="small">Flickr8k photo</text>
+  <text x="62" y="222" class="tiny">resize / normalize</text>
+
+  <line x1="192" y1="204" x2="245" y2="204" class="arrow"/>
+
+  <rect x="245" y="92" width="265" height="96" class="blue"/>
+  <text x="273" y="127" class="text">Route A: torchvision ViT-B/16</text>
+  <text x="273" y="154" class="small">ImageNet-1K supervised pretraining</text>
+  <text x="273" y="176" class="tiny">frozen feature extractor</text>
+
+  <rect x="245" y="220" width="265" height="96" class="green"/>
+  <text x="273" y="255" class="text">Route B: CLIP ViT-B/32</text>
+  <text x="273" y="282" class="small">image-text contrastive pretraining</text>
+  <text x="273" y="304" class="tiny">CLS + patch tokens as memory</text>
+
+  <line x1="510" y1="140" x2="585" y2="216" class="arrow"/>
+  <line x1="510" y1="268" x2="585" y2="246" class="arrow"/>
+
+  <rect x="585" y="174" width="170" height="112" class="gray"/>
+  <text x="620" y="211" class="text">Image Memory</text>
+  <text x="608" y="240" class="small">project to d_model</text>
+  <text x="614" y="264" class="tiny">[B, S_img, D]</text>
+
+  <rect x="42" y="402" width="180" height="112" class="box"/>
+  <text x="70" y="439" class="text">Caption Prefix</text>
+  <text x="62" y="468" class="small">&lt;BOS&gt; a dog ...</text>
+  <text x="62" y="492" class="tiny">teacher forcing / decoding</text>
+
+  <line x1="222" y1="458" x2="292" y2="458" class="arrow"/>
+
+  <rect x="292" y="402" width="200" height="112" class="amber"/>
+  <text x="328" y="436" class="text">Token + Position</text>
+  <text x="326" y="466" class="small">word embeddings</text>
+  <text x="326" y="490" class="tiny">[B, T, D]</text>
+
+  <line x1="492" y1="458" x2="570" y2="458" class="arrow"/>
+
+  <rect x="570" y="370" width="288" height="176" class="purple"/>
+  <text x="642" y="399" class="text">Transformer Decoder</text>
+  <text x="684" y="421" class="small">Block x N</text>
+  <rect x="602" y="425" width="224" height="34" fill="#ffffff" stroke="#a855f7" rx="6"/>
+  <text x="628" y="448" class="small">Masked Self-Attention</text>
+  <rect x="602" y="467" width="224" height="34" fill="#ffffff" stroke="#a855f7" rx="6"/>
+  <text x="652" y="490" class="small">Cross-Attention</text>
+  <rect x="602" y="509" width="224" height="26" fill="#ffffff" stroke="#a855f7" rx="6"/>
+  <text x="683" y="528" class="tiny">FFN + LayerNorm</text>
+
+  <path d="M670 286 C670 326 714 326 714 366" class="dash"/>
+  <text x="728" y="332" class="label">K,V from image memory</text>
+
+  <line x1="858" y1="458" x2="930" y2="458" class="arrow"/>
+
+  <rect x="930" y="402" width="160" height="112" class="box"/>
+  <text x="964" y="439" class="text">LM Head</text>
+  <text x="954" y="468" class="small">vocab logits</text>
+  <text x="954" y="492" class="tiny">next-word scores</text>
+
+  <line x1="1090" y1="458" x2="1145" y2="458" class="arrow"/>
+
+  <rect x="1145" y="402" width="95" height="112" class="box"/>
+  <text x="1165" y="438" class="text">Text</text>
+  <text x="1162" y="468" class="small">caption</text>
+  <text x="1160" y="492" class="tiny">greedy / beam</text>
+
+  <path d="M1192 514 C1192 620 500 620 392 514" class="dash"/>
+  <text x="700" y="610" class="label">generated token becomes next input</text>
+
+  <rect x="42" y="650" width="1198" height="44" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+  <text x="60" y="678" class="small">Trainable part: Transformer decoder and projection layers. Frozen part: torchvision ViT or CLIP vision encoder.</text>
+  <text x="475" y="110" font-size="18" fill="#2563eb">&#x2744;</text>
+  <text x="475" y="238" font-size="18" fill="#16a34a">&#x2744;</text>
+  <text x="730" y="192" font-size="18" fill="#ea580c">&#x1F525;</text>
+  <text x="467" y="420" font-size="18" fill="#ea580c">&#x1F525;</text>
+  <text x="833" y="388" font-size="18" fill="#ea580c">&#x1F525;</text>
+  <text x="1065" y="420" font-size="18" fill="#ea580c">&#x1F525;</text>
+</svg>

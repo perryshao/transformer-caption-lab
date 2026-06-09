@@ -1,0 +1,26 @@
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Model weights & large binaries
+models/
+*.zip
+*.pth
+*.bin
+*.safetensors
+
+# Dataset
+flickr8k/
+
+# Outputs
+outputs/
+
+# Answer key (do not distribute to students)
+transformer_caption_answer.ipynb

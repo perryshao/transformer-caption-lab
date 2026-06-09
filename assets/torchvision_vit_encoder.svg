@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="380" viewBox="0 0 1180 380">
+  <rect width="1180" height="380" fill="#ffffff"/>
+  <defs>
+    <marker id="a" markerWidth="11" markerHeight="11" refX="9" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4 z" fill="#334155"/></marker>
+    <style>
+      .title{font:700 27px Arial,sans-serif;fill:#0f172a}.sub{font:15px Arial,sans-serif;fill:#475569}
+      .h{font:700 17px Arial,sans-serif;fill:#0f172a}.t{font:14px Arial,sans-serif;fill:#334155}.s{font:12px Arial,sans-serif;fill:#64748b}
+      .b{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:9}.blue{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:9}
+      .green{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:9}.amber{fill:#fffbeb;stroke:#d97706;stroke-width:2;rx:9}
+      .gray{fill:#f1f5f9;stroke:#64748b;stroke-width:2;rx:9}.arrow{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <text x="38" y="43" class="title">torchvision ViT-B/16 Image Encoder</text>
+  <text x="38" y="70" class="sub">ImageNet-1K supervised classification pretraining; classification head removed and encoder frozen</text>
+
+  <rect x="38" y="128" width="135" height="105" class="b"/>
+  <text x="76" y="166" class="h">Image</text><text x="60" y="194" class="t">224 x 224 RGB</text><text x="59" y="216" class="s">ImageNet normalize</text>
+  <line x1="173" y1="180" x2="222" y2="180" class="arrow"/>
+
+  <rect x="222" y="115" width="165" height="130" class="blue"/>
+  <text x="252" y="151" class="h">Patchify 16 x 16</text><text x="249" y="180" class="t">14 x 14 patches</text>
+  <text x="250" y="205" class="t">Linear projection</text><text x="252" y="228" class="s">196 patch tokens</text>
+  <line x1="387" y1="180" x2="435" y2="180" class="arrow"/>
+
+  <rect x="435" y="115" width="180" height="130" class="gray"/>
+  <text x="464" y="151" class="h">Token Sequence</text><text x="462" y="180" class="t">prepend [CLS]</text>
+  <text x="462" y="205" class="t">add position embedding</text><text x="466" y="228" class="s">[B, 197, 768]</text>
+  <line x1="615" y1="180" x2="665" y2="180" class="arrow"/>
+
+  <rect x="665" y="95" width="255" height="170" class="amber"/>
+  <text x="708" y="130" class="h">Transformer Encoder x 12</text>
+  <rect x="690" y="148" width="195" height="32" fill="#fff" stroke="#d97706" rx="5"/><text x="718" y="169" class="t">Multi-Head Attention</text>
+  <rect x="690" y="190" width="195" height="32" fill="#fff" stroke="#d97706" rx="5"/><text x="735" y="211" class="t">MLP / FFN</text>
+  <text x="712" y="246" class="s">residual + layer norm</text>
+  <line x1="920" y1="180" x2="960" y2="180" class="arrow"/>
+
+  <rect x="960" y="115" width="220" height="130" class="green"/>
+  <text x="972" y="151" class="h">Global [CLS] Feature</text><text x="982" y="181" class="t">classification head = Identity</text>
+  <text x="1001" y="207" class="t">unsqueeze(1)</text><text x="1010" y="230" class="s">memory: [B, 1, 768]</text>
+
+  <text x="38" y="290" class="h">How this project uses it</text>
+  <text x="38" y="315" class="t">The ImageNet classifier is removed. Only one global [CLS] feature is passed to the student-built Transformer Decoder.</text>
+  <text x="38" y="340" class="t">All encoder parameters have requires_grad=False; only the projection and caption decoder are trained.</text>
+</svg>

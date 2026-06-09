@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1150" viewBox="0 0 800 1150">
+  <rect width="800" height="1150" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <style>
+    .title{font-family:Arial,"Noto Sans CJK SC",sans-serif;font-size:22px;font-weight:700;fill:#0f172a}
+    .h{font-family:Arial,"Noto Sans CJK SC",sans-serif;font-size:14px;font-weight:700;fill:#0f172a}
+    .t{font-family:Arial,"Noto Sans CJK SC",sans-serif;font-size:13px;fill:#334155}
+    .s{font-family:Arial,"Noto Sans CJK SC",sans-serif;font-size:11px;fill:#64748b}
+    .box{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:8}
+    .purple{fill:#faf5ff;stroke:#9333ea;stroke-width:2;rx:10}
+    .white{fill:#ffffff;stroke:#9333ea;stroke-width:1.5;rx:6}
+    .white-oran{fill:#ffffff;stroke:#d97706;stroke-width:1.5;rx:6}
+    .white-blue{fill:#ffffff;stroke:#2563eb;stroke-width:1.5;rx:6}
+    .gray{fill:#f1f5f9;stroke:#64748b;stroke-width:2;rx:8}
+    .resid{stroke:#94a3b8;stroke-width:1.5;fill:none}
+    .arr{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#ar)}
+    .dash{stroke:#64748b;stroke-width:1.8;stroke-dasharray:5 4;fill:none}
+  </style>
+
+  <text x="40" y="28" class="title">Student-built Transformer Decoder (Pre-LN)</text>
+
+  <!-- Config -->
+  <rect x="620" y="45" width="160" height="155" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" rx="8"/>
+  <text x="633" y="68" class="h">Config</text>
+  <text x="633" y="88" class="t">d_model = 256</text>
+  <text x="633" y="105" class="t">num_layers = 2</text>
+  <text x="633" y="122" class="t">num_heads = 4</text>
+  <text x="633" y="139" class="t">ffn_dim = 512</text>
+  <text x="633" y="156" class="t">dropout = 0.3</text>
+  <text x="633" y="173" class="t">vocab_size = 2659</text>
+  <text x="633" y="190" class="t">max_len = 32</text>
+
+  <!-- Output -->
+  <rect x="260" y="40" width="280" height="40" class="box"/>
+  <text x="278" y="60" class="h">LM Head</text>
+  <text x="360" y="60" class="t">Linear(256 → 2659)</text>
+  <text x="278" y="76" class="s">weight tying with token_embed</text>
+
+  <!-- ==================== Decoder Layer 2 (top) ==================== -->
+  <rect x="180" y="100" width="440" height="450" class="purple"/>
+  <text x="200" y="125" class="h">Decoder Layer 2</text>
+
+  <!-- Layer 2: FFN (top sub-layer) -->
+  <circle cx="500" cy="155" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="160" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="175" width="160" height="32" class="white-blue"/>
+  <text x="258" y="192" class="t">Feed Forward</text>
+  <text x="258" y="206" class="s">GELU  256 → 512 → 256</text>
+  <rect x="260" y="212" width="120" height="22" class="white-blue"/>
+  <text x="270" y="228" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="155" x2="489" y2="155" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="175" x2="320" y2="155" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="212" x2="320" y2="207" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="245" x2="320" y2="234" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 245 C440 245 440 155 489 155" class="resid"/>
+  <!-- output to LM Head -->
+  <line x1="512" y1="155" x2="560" y2="155" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="155" x2="560" y2="100" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="100" x2="400" y2="100" stroke="#334155" stroke-width="2"/>
+  <line x1="400" y1="80" x2="400" y2="100" class="arr"/>
+
+  <!-- Layer 2: Cross-Attn (middle) -->
+  <circle cx="500" cy="305" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="310" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="325" width="160" height="32" class="white-oran"/>
+  <text x="258" y="342" class="t">Cross-Attention</text>
+  <text x="258" y="356" class="s">Q from decoder  K=V from Memory</text>
+  <rect x="260" y="362" width="120" height="22" class="white-oran"/>
+  <text x="270" y="378" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="305" x2="489" y2="305" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="325" x2="320" y2="305" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="362" x2="320" y2="357" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="395" x2="320" y2="384" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 395 C440 395 440 305 489 305" class="resid"/>
+  <!-- output to FFN -->
+  <line x1="512" y1="305" x2="560" y2="305" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="305" x2="560" y2="245" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="245" x2="320" y2="245" stroke="#334155" stroke-width="2"/>
+
+  <!-- Layer 2: Self-Attn (bottom) -->
+  <circle cx="500" cy="455" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="460" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="475" width="160" height="32" class="white"/>
+  <text x="258" y="492" class="t">Masked Self-Attention</text>
+  <text x="258" y="506" class="s">causal mask  num_heads=4 head_dim=64</text>
+  <rect x="260" y="512" width="120" height="22" class="white"/>
+  <text x="270" y="528" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="455" x2="489" y2="455" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="475" x2="320" y2="455" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="512" x2="320" y2="507" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="545" x2="320" y2="534" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 545 C440 545 440 455 489 455" class="resid"/>
+  <!-- output to Cross-Attn -->
+  <line x1="512" y1="455" x2="560" y2="455" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="455" x2="560" y2="395" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="395" x2="320" y2="395" stroke="#334155" stroke-width="2"/>
+
+  <!-- ==================== Decoder Layer 1 (bottom) ==================== -->
+  <rect x="180" y="600" width="440" height="450" class="purple"/>
+  <text x="200" y="625" class="h">Decoder Layer 1</text>
+
+  <!-- Layer 1: FFN (top) -->
+  <circle cx="500" cy="655" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="660" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="675" width="160" height="32" class="white-blue"/>
+  <text x="258" y="692" class="t">Feed Forward</text>
+  <text x="258" y="706" class="s">GELU  256 → 512 → 256</text>
+  <rect x="260" y="712" width="120" height="22" class="white-blue"/>
+  <text x="270" y="728" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="655" x2="489" y2="655" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="675" x2="320" y2="655" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="712" x2="320" y2="707" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="745" x2="320" y2="734" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 745 C440 745 440 655 489 655" class="resid"/>
+  <!-- output to Block 2 -->
+  <line x1="512" y1="655" x2="560" y2="655" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="655" x2="560" y2="600" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="600" x2="400" y2="600" stroke="#334155" stroke-width="2"/>
+  <line x1="400" y1="545" x2="400" y2="600" class="arr"/>
+
+  <!-- Layer 1: Cross-Attn (middle) -->
+  <circle cx="500" cy="805" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="810" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="825" width="160" height="32" class="white-oran"/>
+  <text x="258" y="842" class="t">Cross-Attention</text>
+  <text x="258" y="856" class="s">Q from decoder  K=V from Memory</text>
+  <rect x="260" y="862" width="120" height="22" class="white-oran"/>
+  <text x="270" y="878" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="805" x2="489" y2="805" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="825" x2="320" y2="805" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="862" x2="320" y2="857" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="895" x2="320" y2="884" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 895 C440 895 440 805 489 805" class="resid"/>
+  <!-- output to FFN -->
+  <line x1="512" y1="805" x2="560" y2="805" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="805" x2="560" y2="745" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="745" x2="320" y2="745" stroke="#334155" stroke-width="2"/>
+
+  <!-- Layer 1: Self-Attn (bottom) -->
+  <circle cx="500" cy="955" r="11" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="495" y="960" font-family="Arial" font-size="14" font-weight="700" fill="#0f172a">+</text>
+  <rect x="240" y="975" width="160" height="32" class="white"/>
+  <text x="258" y="992" class="t">Masked Self-Attention</text>
+  <text x="258" y="1006" class="s">causal mask  num_heads=4 head_dim=64</text>
+  <rect x="260" y="1012" width="120" height="22" class="white"/>
+  <text x="270" y="1028" class="t">LayerNorm</text>
+  <!-- main path -->
+  <line x1="320" y1="955" x2="489" y2="955" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="975" x2="320" y2="955" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="1012" x2="320" y2="1007" stroke="#334155" stroke-width="2"/>
+  <line x1="320" y1="1045" x2="320" y2="1034" stroke="#334155" stroke-width="2"/>
+  <!-- residual -->
+  <path d="M320 1045 C440 1045 440 955 489 955" class="resid"/>
+  <!-- output to Cross-Attn -->
+  <line x1="512" y1="955" x2="560" y2="955" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="955" x2="560" y2="895" stroke="#334155" stroke-width="2"/>
+  <line x1="560" y1="895" x2="320" y2="895" stroke="#334155" stroke-width="2"/>
+
+  <!-- Arrow from Embeddings to Block 1 -->
+  <line x1="400" y1="1070" x2="400" y2="1045" class="arr"/>
+
+  <!-- Bottom Inputs -->
+  <rect x="260" y="1070" width="280" height="42" class="amber"/>
+  <text x="278" y="1090" class="h">Input Embeddings + Pos. Enc.</text>
+  <text x="278" y="1106" class="t">[B, T, 256]   nn.Embedding(2659, 256)</text>
+
+  <rect x="40" y="1070" width="190" height="42" class="gray"/>
+  <text x="55" y="1090" class="h">Memory</text>
+  <text x="55" y="1106" class="t">[B, S_img, 256]</text>
+
+  <!-- Memory dashed lines to Cross-Attn -->
+  <path d="M230 1091 C300 1091 300 850 240 850" class="dash"/>
+  <path d="M230 1091 C300 1091 300 340 240 340" class="dash"/>
+  <text x="260" y="680" class="s" transform="rotate(-90 260 680)">K, V</text>
+</svg>
