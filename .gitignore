@@ -24,3 +24,9 @@ outputs/
 
 # Answer key (do not distribute to students)
 transformer_caption_answer.ipynb
+
+# Hugging Face cache (may be downloaded to root during local runs)
+hub/
+
+# Old CNN+LSTM answer notebook
+image_caption_ans.ipynb
