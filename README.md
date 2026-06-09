@@ -69,6 +69,26 @@ caption prefix tokens
 - `assets/decoder_classic_transformer.svg`：展示学生手工实现的 Transformer Decoder（Pre-LN）详细结构，包括 Decoder Block、Masked Self-Attention、Cross-Attention 和 FFN。
 - `assets/imcaption.png`、`assets/tocken.gif`、`assets/samples.png`：任务说明、tokenization 和数据样例可视化素材。
 
+## 4.1 数据集获取
+
+本仓库不包含 Flickr8k 数据集（约 1 GB）。请自行下载并解压到项目根目录，确保目录结构如下：
+
+```text
+./flickr8k/Images/
+./flickr8k/captions.txt
+```
+
+常用下载来源：
+
+- **Kaggle**: https://www.kaggle.com/datasets/adityajn105/flickr8k
+- **课程网盘 / QQ 群**：由助教提供国内镜像下载
+
+下载后解压即可：
+
+```bash
+unzip flickr8k.zip -d ./
+```
+
 ## 5. 推荐运行流程
 
 1. 打开 `transformer_caption_starter.ipynb`。
