@@ -81,7 +81,7 @@ caption prefix tokens
 常用下载来源：
 
 - **Kaggle**: https://www.kaggle.com/datasets/adityajn105/flickr8k
-- **课程网盘 / QQ 群**：由助教提供国内镜像下载
+- **百度网盘**：[[https://pan.baidu.com/s/1LCuDxrsCS6LoJyxWvzeZDQ?pwd=qd1x ]]
 
 下载后解压即可：
 
@@ -230,16 +230,16 @@ https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/model.safetenso
 如果你下载的是普通 Hugging Face 模型目录，目录结构可以是：
 
 ```text
-final lab transformer caption/clip-vit-base-patch32/
+./clip-vit-base-patch32/
   config.json
   preprocessor_config.json
   pytorch_model.bin
 ```
 
-如果你复制的是 Hugging Face 缓存目录，目录结构通常是：
+如果你复制的是 Hugging Face 缓存目录，目录结构通常是(**推荐方式，当前代码直接支持**)：
 
 ```text
-final lab transformer caption/models/hub/
+./models/hub/
   models--openai--clip-vit-base-patch32/
     blobs/
     refs/
